@@ -145,7 +145,7 @@ Rules:
         return None
 
     def _extract_action(self, text: str) -> Optional[tuple[str, str]]:
-        match = re.search(r"Action:\s*([a-zA-Z_][a-zA-Z0-9_]*)\((.*)\)", text, flags=re.DOTALL)
+        match = re.search(r"Action:\s*([a-zA-Z_][a-zA-Z0-9_]*)\((.*)\)", text)
         if not match:
             return None
         return match.group(1), match.group(2).strip()
@@ -165,23 +165,19 @@ Rules:
         for keyword in call_node.keywords:
             if keyword.arg is None:
                 raise ValueError("Unsupported unpacked keyword arguments.")
-            parsed_args[keyword.arg] = ast.literal_eval(keyword.value)
+            try:
+                val = ast.literal_eval(keyword.value)
+            except Exception:
+                try:
+                    code = compile(ast.Expression(keyword.value), filename="<ast>", mode="eval")
+                    val = eval(code, {"__builtins__": {}})
+                except Exception as eval_exc:
+                    raise ValueError(f"Could not parse argument {keyword.arg}: {eval_exc}")
+            parsed_args[keyword.arg] = val
         return parsed_args
 
     def _normalize_tool_args(self, tool_name: str, parsed_args: Dict[str, Any]) -> Dict[str, Any]:
         normalized_args = dict(parsed_args)
-
-        if tool_name == "calc_shipping":
-            if "destination_city" in normalized_args and "destination" not in normalized_args:
-                normalized_args["destination"] = normalized_args.pop("destination_city")
-            if "city" in normalized_args and "destination" not in normalized_args:
-                normalized_args["destination"] = normalized_args.pop("city")
-
-        if tool_name == "find_cheapest_product" and "category" in normalized_args:
-            category = str(normalized_args["category"]).strip().lower()
-            if category.endswith("s"):
-                normalized_args["category"] = category[:-1]
-
         return normalized_args
 
     def _build_followup_prompt(self, user_input: str) -> str:

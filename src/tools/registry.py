@@ -1,62 +1,30 @@
-from src.tools.ecommerce import (
-    calc_shipping,
-    check_stock,
-    find_cheapest_product,
-    find_product,
-    get_discount,
-)
+from typing import Callable, Dict, Any, List
 
+import src.tools.check_schedule as check_schedule
+import src.tools.find_common_free_slots as find_common_free_slots
+import src.tools.book_meeting as book_meeting
+import src.tools.send_invitation_email as send_invitation_email
 
-TOOLS = [
-    {
-        "name": "find_product",
-        "description": (
-            "Find one exact product by item_name and return its price, stock, and weight. "
-            "Use this when the user already names a specific product."
-        ),
-        "function": find_product,
-    },
-    {
-        "name": "find_cheapest_product",
-        "description": (
-            "Find the cheapest product in a category and return its price, stock, and weight. "
-            "Use this when the user asks for the lowest-priced option in a category."
-        ),
-        "function": find_cheapest_product,
-    },
-    {
-        "name": "check_stock",
-        "description": (
-            "Check available stock for one exact product by item_name. "
-            "Use this before confirming quantity or suggesting a replacement."
-        ),
-        "function": check_stock,
-    },
-    {
-        "name": "get_discount",
-        "description": (
-            "Get discount percentage for a coupon_code such as WINNER, SAVE10, or STUDENT. "
-            "Use this when the user mentions a coupon or discount code."
-        ),
-        "function": get_discount,
-    },
-    {
-        "name": "calc_shipping",
-        "description": (
-            "Calculate shipping fee from weight_kg and destination city. "
-            "Use this after product selection when delivery cost is needed."
-        ),
-        "function": calc_shipping,
-    },
-]
-
-
-def get_tools():
-    return TOOLS
-
-
-def execute_tool(tool_name: str, **kwargs):
-    for tool in TOOLS:
-        if tool["name"] == tool_name:
-            return tool["function"](**kwargs)
-    raise KeyError(f"Unknown tool: {tool_name}")
+def get_tools() -> List[Dict[str, Any]]:
+    return [
+        {
+            "name": "check_schedule",
+            "description": "Check the schedule of a specific person for a given date or week. Provide person_name and optional date (YYYY-MM-DD).",
+            "function": check_schedule.execute
+        },
+        {
+            "name": "find_common_free_slots",
+            "description": "Find time slots where all specified people are free. Provide person_names (comma-separated).",
+            "function": find_common_free_slots.execute
+        },
+        {
+            "name": "book_meeting",
+            "description": "Book a meeting at a specific time slot for specified people. Provide person_names, date (YYYY-MM-DD), time (HH:MM), title, duration, organizer_email (optional), custom_message (optional).",
+            "function": book_meeting.execute
+        },
+        {
+            "name": "send_invitation_email",
+            "description": "Send meeting invitation emails. Provide booking_id, organizer_email, custom_message (optional).",
+            "function": send_invitation_email.execute
+        }
+    ]
