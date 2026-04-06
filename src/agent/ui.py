@@ -26,9 +26,14 @@ with st.sidebar:
     st.header("⚙️ Configuration")
     
     # Provider selection
+    from dotenv import load_dotenv
+    load_dotenv()
+    default_provider = os.getenv("DEFAULT_PROVIDER", "openai").lower()
+    providers = ["openai", "nine_router", "gemini", "local"]
     provider = st.selectbox(
         "Select LLM Provider:",
-        ["openai", "gemini", "local"],
+        providers,
+        index=providers.index(default_provider) if default_provider in providers else 0,
         help="Choose which LLM provider to use"
     )
     
@@ -47,6 +52,26 @@ with st.sidebar:
             os.environ["OPENAI_API_KEY"] = api_key_input
         elif not api_key_env:
             st.warning("⚠️ OpenAI API key not set. Please provide one above.")
+
+    elif provider == "nine_router":
+        api_key_env = os.getenv("API_KEY", "")
+        api_key_input = st.text_input(
+            "Nine Router API Key:",
+            value=api_key_env,
+            type="password"
+        )
+        if api_key_input:
+            os.environ["API_KEY"] = api_key_input
+        elif not api_key_env:
+            st.warning("⚠️ API key not set. Please provide one above.")
+
+        base_url_env = os.getenv("BASE_URL", "http://localhost:20128/v1")
+        base_url_input = st.text_input(
+            "Base URL:",
+            value=base_url_env
+        )
+        if base_url_input:
+            os.environ["BASE_URL"] = base_url_input
     
     elif provider == "gemini":
         api_key_env = os.getenv("GEMINI_API_KEY", "")
@@ -64,7 +89,10 @@ with st.sidebar:
     # Model selection based on provider
     st.subheader("🤖 Model Selection")
     if provider == "openai":
-        model = st.selectbox("Model:", ["gpt-4", "gpt-4-turbo", "gpt-3.5-turbo"])
+        model = st.selectbox("Model:", ["gpt-4", "gpt-4-turbo", "gpt-3.5-turbo", "gpt-4o"])
+    elif provider == "nine_router":
+        default_model = os.getenv("DEFAULT_MODEL", "qw/qwen3-coder-flash")
+        model = st.text_input("Model:", value=default_model)
     elif provider == "gemini":
         model = st.selectbox("Model:", ["gemini-pro", "gemini-1.5-pro"])
     else:
@@ -116,6 +144,9 @@ with col1:
     if provider == "openai" and not os.getenv("OPENAI_API_KEY"):
         api_key_available = False
         error_message = "❌ OpenAI API key is required. Please enter it in the sidebar."
+    elif provider == "nine_router" and not os.getenv("API_KEY"):
+        api_key_available = False
+        error_message = "❌ Nine Router API key is required. Please enter it in the sidebar."
     elif provider == "gemini" and not os.getenv("GEMINI_API_KEY"):
         api_key_available = False
         error_message = "❌ Gemini API key is required. Please enter it in the sidebar."

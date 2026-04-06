@@ -1,0 +1,50 @@
+[
+  {
+    "booking_id": "meeting_1",
+    "to": "minhanh@company.vn",
+    "subject": "Meeting Invitation: Team Meeting",
+    "body": "Dear Team,\n\nYou are invited to the following meeting:\n\n📅 Meeting Details:\n   Title: Team Meeting\n   Date: 2026-04-08\n   Time: 09:00\n   Duration: 1.0 hour(s)\n   Attendees: Minh Anh, Tuấn Khoa, Hà Linh\n\n\nPlease join our team meeting next week.\n\nPlease confirm your attendance.\n\nBest regards,\nMeeting Organizer\norganizer@company.vn\n\n---\nThis is an automated message from the Meeting Scheduling System.\nBooking ID: meeting_1\n",
+    "sent_at": "2026-04-06T17:23:24.271501",
+    "status": "sent"
+  },
+  {
+    "booking_id": "meeting_1",
+    "to": "tuankhoa@company.vn",
+    "subject": "Meeting Invitation: Team Meeting",
+    "body": "Dear Team,\n\nYou are invited to the following meeting:\n\n📅 Meeting Details:\n   Title: Team Meeting\n   Date: 2026-04-08\n   Time: 09:00\n   Duration: 1.0 hour(s)\n   Attendees: Minh Anh, Tuấn Khoa, Hà Linh\n\n\nPlease join our team meeting next week.\n\nPlease confirm your attendance.\n\nBest regards,\nMeeting Organizer\norganizer@company.vn\n\n---\nThis is an automated message from the Meeting Scheduling System.\nBooking ID: meeting_1\n",
+    "sent_at": "2026-04-06T17:23:24.271519",
+    "status": "sent"
+  },
+  {
+    "booking_id": "meeting_1",
+    "to": "halinh@company.vn",
+    "subject": "Meeting Invitation: Team Meeting",
+    "body": "Dear Team,\n\nYou are invited to the following meeting:\n\n📅 Meeting Details:\n   Title: Team Meeting\n   Date: 2026-04-08\n   Time: 09:00\n   Duration: 1.0 hour(s)\n   Attendees: Minh Anh, Tuấn Khoa, Hà Linh\n\n\nPlease join our team meeting next week.\n\nPlease confirm your attendance.\n\nBest regards,\nMeeting Organizer\norganizer@company.vn\n\n---\nThis is an automated message from the Meeting Scheduling System.\nBooking ID: meeting_1\n",
+    "sent_at": "2026-04-06T17:23:24.271526",
+    "status": "sent"
+  },
+  {
+    "booking_id": "meeting_2",
+    "to": "minhanh@company.vn",
+    "subject": "Meeting Invitation: Team Meeting",
+    "body": "Dear Team,\n\nYou are invited to the following meeting:\n\n📅 Meeting Details:\n   Title: Team Meeting\n   Date: 2026-04-08\n   Time: 10:00\n   Duration: 1.0 hour(s)\n   Attendees: Minh Anh, Tuấn Khoa, Hà Linh\n\n\nPlease join our team meeting next week.\n\nPlease confirm your attendance.\n\nBest regards,\nMeeting Organizer\norganizer@company.vn\n\n---\nThis is an automated message from the Meeting Scheduling System.\nBooking ID: meeting_2\n",
+    "sent_at": "2026-04-06T17:29:15.688617",
+    "status": "sent"
+  },
+  {
+    "booking_id": "meeting_2",
+    "to": "tuankhoa@company.vn",
+    "subject": "Meeting Invitation: Team Meeting",
+    "body": "Dear Team,\n\nYou are invited to the following meeting:\n\n📅 Meeting Details:\n   Title: Team Meeting\n   Date: 2026-04-08\n   Time: 10:00\n   Duration: 1.0 hour(s)\n   Attendees: Minh Anh, Tuấn Khoa, Hà Linh\n\n\nPlease join our team meeting next week.\n\nPlease confirm your attendance.\n\nBest regards,\nMeeting Organizer\norganizer@company.vn\n\n---\nThis is an automated message from the Meeting Scheduling System.\nBooking ID: meeting_2\n",
+    "sent_at": "2026-04-06T17:29:15.688641",
+    "status": "sent"
+  },
+  {
+    "booking_id": "meeting_2",
+    "to": "halinh@company.vn",
+    "subject": "Meeting Invitation: Team Meeting",
+    "body": "Dear Team,\n\nYou are invited to the following meeting:\n\n📅 Meeting Details:\n   Title: Team Meeting\n   Date: 2026-04-08\n   Time: 10:00\n   Duration: 1.0 hour(s)\n   Attendees: Minh Anh, Tuấn Khoa, Hà Linh\n\n\nPlease join our team meeting next week.\n\nPlease confirm your attendance.\n\nBest regards,\nMeeting Organizer\norganizer@company.vn\n\n---\nThis is an automated message from the Meeting Scheduling System.\nBooking ID: meeting_2\n",
+    "sent_at": "2026-04-06T17:29:15.688649",
+    "status": "sent"
+  }
+]

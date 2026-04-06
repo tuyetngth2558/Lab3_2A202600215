@@ -1,0 +1,40 @@
+[
+  {
+    "id": "meeting_1",
+    "title": "Team Meeting",
+    "date": "2026-04-08",
+    "time": "09:00",
+    "duration": 1.0,
+    "attendees": [
+      "Minh Anh",
+      "Tuấn Khoa",
+      "Hà Linh"
+    ],
+    "attendee_emails": [
+      "minhanh@company.vn",
+      "tuankhoa@company.vn",
+      "halinh@company.vn"
+    ],
+    "status": "invited",
+    "created_at": "2026-04-06T17:23:22.716421"
+  },
+  {
+    "id": "meeting_2",
+    "title": "Team Meeting",
+    "date": "2026-04-08",
+    "time": "10:00",
+    "duration": 1.0,
+    "attendees": [
+      "Minh Anh",
+      "Tuấn Khoa",
+      "Hà Linh"
+    ],
+    "attendee_emails": [
+      "minhanh@company.vn",
+      "tuankhoa@company.vn",
+      "halinh@company.vn"
+    ],
+    "status": "invited",
+    "created_at": "2026-04-06T17:29:13.790636"
+  }
+]
