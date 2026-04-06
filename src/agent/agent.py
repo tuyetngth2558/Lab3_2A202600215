@@ -12,7 +12,7 @@ class ReActAgent:
     Students should implement the core loop logic and tool execution.
     """
     
-    def __init__(self, llm: LLMProvider, tools: List[Dict[str, Any]], max_steps: int = 5):
+    def __init__(self, llm: LLMProvider, tools: List[Dict[str, Any]], max_steps: int = 10):
         self.llm = llm
         self.tools = tools
         self.max_steps = max_steps
@@ -22,23 +22,40 @@ class ReActAgent:
         tool_descriptions = "\n".join([f"- {t['name']}: {t['description']}" for t in self.tools])
         current_date = datetime.now().strftime("%Y-%m-%d")
         return f"""You are a helpful AI assistant with access to several tools.
-Below are the available tools:
-{tool_descriptions}
+    Today's date is {current_date}. Use this when interpreting relative dates like 'next week' or 'tomorrow'.
 
-Important: The current date is {current_date}. Keep this in mind when dealing with scheduling such as 'next week' or 'tomorrow'.
+    Available tools:
+    {tool_descriptions}
 
-When you need to use a tool, you MUST use the following format:
-Thought: short reasoning about the next step
-Action: tool_name(arg_name="value", other_arg=123)
-Observation: tool result
-... repeat if needed
-Final Answer: the final answer for the user
-Rules:
-- If you need a tool, output exactly one Action line.
-- Do not invent tools that are not listed.
-- After receiving an Observation, continue reasoning from that observation.
-- If you already have enough information, output Final Answer.
-        """
+    ## Output Format
+    Each response must follow this structure exactly:
+    Thought: <your reasoning about what to do next>
+    Action: tool_name(arg_name="value", other_arg=123)
+
+    After receiving the Observation, continue with the next Thought/Action or provide the Final Answer:
+    Final Answer: <your final response to the user>
+
+    ## Rules
+    1. Generate ONLY ONE Action per response. Do NOT simulate or predict future Observations.
+    2. Wait for the actual Observation before deciding the next step.
+    3. Only use tools from the list above. Do not invent tool names or arguments.
+    4. All date arguments must use format YYYY-MM-DD and must be >= {current_date}.
+    5. Always use the booking_id returned from the actual Observation, never invent one.
+    6. If you already have enough information, skip Action and go straight to Final Answer.
+
+    ## Example (follow this pattern exactly)
+    User: Book a meeting with Alice next Monday.
+    Thought: I need to find a free slot for Alice first.
+    Action: find_common_free_slots(person_names="Alice")
+    Observation: 2026-04-13: 10:00
+    Thought: Found a free slot. Now I'll book the meeting.
+    Action: book_meeting(person_names="Alice", date="2026-04-13", time="10:00", title="Meeting", duration=1.0)
+    Observation: ✅ Booking ID: meeting_7
+    Thought: Meeting booked. Now I'll send the invitation using the real booking_id from above.
+    Action: send_invitation_email(booking_id="meeting_7", organizer_email="organizer@company.vn", custom_message="Please join.")
+    Observation: ✅ Email sent.
+    Final Answer: Meeting with Alice has been booked on April 13 at 10:00 and the invitation has been sent.
+    """
 
     def run(self, user_input: str) -> str:
         logger.log_event("AGENT_START", {"input": user_input, "model": self.llm.model_name})
